@@ -1,14 +1,192 @@
-\documentclass{article}
-\usepackage{graphicx} % Required for inserting images
+\documentclass[journal]{IEEEtran}
 
-\title{MURI_Paper_2_1st_darft}
-\author{Aviskar Giri}
-\date{August 2026}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage[caption=false,font=footnotesize]{subfig}
+\usepackage[hidelinks]{hyperref}
+
+% Working note on scope. IEEE TGRS applies an overlength page charge from
+% page 11 for submissions received on or after 1 January 2026. The target is
+% therefore ten typeset pages including references.
 
 \begin{document}
 
+\title{An Optical Freezing Curve: Retrieving Unfrozen Water Content in\\
+Freezing Soil from Reflectance Spectra}
+
+\author{Aviskar~Giri,
+        Go~Iwahana,
+        Tugce~Baser,
+        and~Vasit~Sagan% author order and full list to be confirmed
+\thanks{A. Giri and V. Sagan are with the Geospatial Institute, Saint Louis University, St. Louis, MO 63108 USA, and with Taylor Geospatial Institute, St. Louis, MO 63108 USA (e-mail: vasit.sagan@slu.edu).}%
+\thanks{G. Iwahana is with the International Arctic Research Center, University of Alaska Fairbanks, Fairbanks, AK 99775 USA.}%
+\thanks{T. Baser is with the Department of Civil and Environmental Engineering, University of Illinois Urbana-Champaign, Urbana, IL 61801 USA.}%
+\thanks{This work was supported by the Air Force Office of Scientific Research under award FA9550-24-1-0307.}}
+
 \maketitle
 
+\begin{abstract}
+%% Placeholder. Write last, after the retrieval results are fixed.
+%% Target structure: the quantity and why it matters; the gap in one sentence;
+%% the forward model; the retrieval; the validation and its numbers; the limit
+%% of the retrievable regime, stated honestly.
+The fraction of soil water that remains liquid below \SI{0}{\degreeCelsius}
+governs the thermal and mechanical behavior of frozen ground, and it is
+measured today only by contact methods. We present a three-phase radiative
+transfer model of soil reflectance that treats the mineral matrix, the
+adsorbed liquid film, and the ice phase explicitly, and we invert it to
+recover unfrozen water content as a function of temperature. Results pending.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Permafrost, soil freezing characteristic curve, unfrozen water content,
+imaging spectroscopy, radiative transfer, reflectance spectroscopy.
+\end{IEEEkeywords}
+
 \section{Introduction}
+
+\IEEEPARstart{T}{he} amount of water that remains liquid in soil below the
+bulk freezing point is the state variable that governs how frozen ground
+conducts heat, deforms under load, and releases carbon on thaw. The
+relationship between that unfrozen water content and temperature is the soil
+freezing characteristic curve. It is a required input to essentially every
+permafrost thermal model, and it is measured almost exclusively by methods
+that must be inserted into the soil: nuclear magnetic resonance, time domain
+reflectometry, capacitance probes, and calorimetry \cite{Devoie_2022}.
+
+%% The argument of the paper, in the order a reviewer will test it.
+%% 1. The quantity matters and is hard to measure.
+%% 2. Optical remote sensing has never measured it, and the reason is that
+%%    the soil radiative transfer literature stops at the freezing point.
+%% 3. The physics says it should be measurable, because liquid water and ice
+%%    have distinct and offset absorption features in the reflective infrared.
+%% 4. We build the forward model, invert it, and bound the regime where the
+%%    retrieval is trustworthy.
+
+Physical models of soil reflectance have matured considerably in the solar
+domain. The MARMIT family represents wet soil as a dry substrate overlain by
+a water film whose thickness sets the strength of the water absorption
+features \cite{Bablet_2018,Dupiau_2022}, two-flux theory yields transformed
+reflectances that are linear in water content in the shortwave infrared
+\cite{Sadeghi_2015}, and the Hapke formulation has been extended across the
+spectrum to characterize soil physical properties \cite{Ding_2022}. These
+strands were recently unified into a single model spanning dry and wet
+conditions \cite{Ding_2026}. That unified model, like every predecessor,
+treats water in one phase only, and its validation covers 219 soil samples.
+The soil radiative transfer literature therefore stops precisely at the
+temperature where frozen ground becomes interesting.
+
+The freezing literature stops on the other side of the same boundary. A
+compilation of 416 measured freezing curves drawn from 254 publications
+between 1921 and 2021 records methods based on magnetic resonance,
+permittivity, calorimetry, dilatometry, and neutron scattering, and it
+contains no optical or infrared technique \cite{Devoie_2022}. The nearest
+approach from the measurement side is dielectric spectroscopy, which
+estimates ice content in frozen porous media from the permittivity spectrum
+\cite{Bittelli_2004}. Geophysical imaging of the same quantity through
+spectral induced polarization is now established for seasonally frozen ground
+\cite{Maierhofer_2024,Wu_2017}, and dielectric mixing models that
+parameterize unfrozen water underpin microwave remote sensing of frozen soil
+\cite{Mironov_2004,Bakian_Dogaheh_2025}. An optical counterpart to that body
+of work does not exist.
+
+%% Guard the claim. Say optical or infrared, never "spectroscopic", because
+%% dielectric spectroscopy is in the freezing-curve canon (Bittelli 2004).
+
+The physical basis for one does exist. Liquid water and ice have distinct
+optical constants throughout the reflective infrared \cite{Warren_2008}, and
+their absorption features are offset: the liquid combination bands near
+\SI{1400}{\nano\meter} and \SI{1900}{\nano\meter} shift and sharpen toward
+the crystalline ice features near \SI{1500}{\nano\meter} and
+\SI{2020}{\nano\meter}, with a further diagnostic ice band near
+\SI{1030}{\nano\meter}. Band position and depth in this region therefore
+carry information about how water is partitioned between phases, not only
+about how much water is present. Laboratory reflectance studies of ice and
+regolith mixtures in the planetary literature confirm that the partition is
+spectrally expressed, although those experiments use mineral simulants and do
+not resolve unfrozen water or a freezing curve \cite{Yoldi_2021}.
+
+%% TODO: one paragraph placing this against our own prior work, once the
+%% companion manuscript has a citable identifier. The relevant point is that
+%% frozen cores scanned in the field returned an ice-content retrieval that
+%% could not separate crystalline ice from surface meltwater, which is the
+%% confound temperature control removes.
+
+This paper makes three contributions.
+\begin{enumerate}
+  \item A three-phase forward model of soil reflectance in which the mineral
+        matrix, the adsorbed liquid film, and the ice phase are represented
+        explicitly, extending the wet-soil radiative transfer lineage across
+        the phase boundary at which it currently terminates.
+  \item A retrieval of unfrozen water content as a function of temperature
+        from reflectance alone, benchmarked against a co-measured contact
+        method on the same specimens, and against the published compilation
+        of measured freezing curves.
+  \item A bound on the retrievable regime. We report the temperature range
+        and the soil classes over which the retrieval is trustworthy, and we
+        state where the residual liquid films become too thin to express
+        themselves in reflectance.
+\end{enumerate}
+
+\section{Background}
+
+\subsection{The soil freezing characteristic curve}
+
+%% Keep this short. One column at most. The reader is a remote sensing
+%% audience, not a soil physics audience.
+Freezing curves and water retention curves are related through the Clapeyron
+equation, so that the depression of the freezing point plays the role of
+matric potential \cite{Koopmans_1966,Spaans_1996}. Parametric forms fitted to
+measured curves are widely used \cite{Kozlowski_2007}, and recent work has
+concentrated on faster measurement \cite{Tian_2023} and on freezing point
+depression in permafrost soils specifically \cite{Chuvilin_2022}.
+
+\subsection{Why reflectance should carry the signal}
+
+%% Physics section. Optical constants of ice and water, film geometry,
+%% and the reason the adsorbed-film limit is the hard case.
+
+\section{Forward Model}
+
+%% Three-phase extension. Define the state vector, the film geometry, and the
+%% mixing rule. State every assumption as an equation, not as prose.
+
+\section{Materials}
+
+\subsection{Specimens}
+
+%% Remolded specimens spanning the measured property ranges of the site
+%% archive, prepared at prescribed dry density and gravimetric water content.
+%% Treatments: moisture, organic content, and salinity.
+
+\subsection{Spectral and reference measurements}
+
+%% Contact probe with internal illumination, 350 to 2500 nm. Temperature
+%% ladder with equilibration at each step. Co-measured contact reference.
+%% Frost management on the optical path is a reportable part of the protocol.
+
+\section{Retrieval and Evaluation}
+
+%% The evaluation protocol is pre-registered before any fitting. Grouping is
+%% by specimen, never by spectrum, because each specimen contributes many
+%% spectra across the temperature ladder.
+
+\section{Results}
+
+\section{Discussion}
+
+\section{Conclusion}
+
+\section*{Acknowledgment}
+
+The authors thank the Geophysical Institute at the University of Alaska
+Fairbanks for access to Poker Flat Research Range.
+
+\bibliographystyle{IEEEtran}
+\bibliography{refs}
 
 \end{document}
