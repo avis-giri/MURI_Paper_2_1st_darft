@@ -1,507 +1,287 @@
-\documentclass[journal]{IEEEtran}
+\documentclass[11pt]{article}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+\usepackage[margin=1in]{geometry}
 \usepackage{graphicx}
 \usepackage{amsmath,amssymb}
 \usepackage{booktabs}
 \usepackage{siunitx}
-\usepackage[caption=false,font=footnotesize]{subfig}
 \usepackage{url}
 \usepackage[hidelinks]{hyperref}
+\usepackage{titlesec}
+\usepackage{caption}
+\captionsetup{font=small,labelfont=bf}
+\titleformat{\section}{\normalfont\large\bfseries}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\normalfont\normalsize\bfseries}{\thesubsection}{0.6em}{}
+\setlength{\parskip}{0.35em}
+
+\title{\vspace{-1.5em}\textbf{An Optical Route to Unfrozen Water Content}\\[0.3em]
+\large A proposal for the next permafrost spectroscopy paper}
+\author{Aviskar Giri, Vasit Sagan, Ajay Kumar Patel,\\
+Cagri Gul, Go Iwahana, Tugce Baser}
+\date{August 2026}
 
 \begin{document}
-
-\title{A Phase-Partition Index for Freezing Soil: Retrieving Unfrozen Water
-Content from Reflectance Spectroscopy}
-
-\author{Aviskar~Giri,
-        Vasit~Sagan,
-        Ajay~Kumar~Patel,
-        Cagri~Gul,
-        Go~Iwahana,
-        and~Tugce~Baser
-\thanks{A. Giri, V. Sagan, A. K. Patel, and C. Gul are with the Geospatial Center and the Department of Earth, Environmental and Geospatial Science, Saint Louis University, St. Louis, MO 63108 USA. A. Giri and V. Sagan are also with Taylor Geospatial Institute, St. Louis, MO 63108 USA (e-mail: vasit.sagan@slu.edu).}%
-\thanks{G. Iwahana is with the International Arctic Research Center, University of Alaska Fairbanks, Fairbanks, AK 99775 USA.}%
-\thanks{T. Baser is with the Department of Civil Engineering, Saint Louis University, St. Louis, MO 63108 USA.}%
-\thanks{This work was supported by the Air Force Office of Scientific Research under award FA9550-24-1-0307.}}
-
 \maketitle
+\vspace{-1.5em}
 
-\begin{abstract}
-The fraction of soil water that remains liquid below \SI{0}{\degreeCelsius}
-governs the thermal, mechanical, and biogeochemical behavior of frozen ground,
-and every established way of measuring it requires contact with the soil. We
-show that this quantity is accessible to reflectance spectroscopy. Because
-liquid water and ice have offset absorption features, a dual-band logarithmic
-ratio is linear in the liquid fraction of pore water and invariant to albedo.
-We derive the index from a three-phase radiative transfer treatment in which
-the mineral matrix, the adsorbed liquid film, and the ice phase are represented
-explicitly, using published optical constants that are held fixed rather than
-fitted. Applied to archived field spectra of permafrost cores and active-layer
-horizons at Poker Flat Research Range, interior Alaska, the index separates
-frozen from unfrozen material at the specimen-group level ($p = \num{7e-5}$),
-and a weaker band pair recovers the separation in saturated organic horizons
-where the strong bands are opaque ($p = \num{1e-5}$). Propagating the forward
-model across \num{17612} soil layers of a national laboratory library, the
-predicted index change over the freeze-out interval exceeds a three-sigma
-contact-probe threshold for \SI{97}{\percent} to \SI{99}{\percent} of layers,
-with permafrost-order soils yielding the largest response. Records from four monitoring
-stations in interior Alaska place \SI{86}{\percent} to \SI{100}{\percent} of
-sub-zero residence time warmer than \SI{-5}{\degreeCelsius} at boreal forest
-sites, though only \SI{34}{\percent} at an exposed tundra site, which bounds
-where the retrieval addresses the conditions the ground occupies. A structured survey of
-\num{9021} publications finds one work at the intersection of reflectance
-spectroscopy and unfrozen water against \num{46.7} expected under independence.
-\end{abstract}
+\begin{center}
+\rule{0.85\textwidth}{0.4pt}
+\end{center}
 
-\begin{IEEEkeywords}
-Imaging spectroscopy, permafrost, radiative transfer, reflectance spectroscopy,
-soil freezing characteristic curve, unfrozen water content.
-\end{IEEEkeywords}
+\noindent
+\textbf{In one paragraph.} The amount of water that stays liquid in soil below
+freezing controls how frozen ground conducts heat, carries load, and releases
+carbon. Every accepted way of measuring it requires touching the soil. Liquid
+water and ice absorb infrared light at different wavelengths, so a ratio of two
+reflectance bands should reveal how the water is divided between the two
+phases. We have checked the physics against published optical constants, found
+the predicted signal in spectra we already collected at Poker Flat, and
+confirmed that no one has published this measurement. We can begin testing it
+within weeks using samples already in the laboratory, because those samples
+were scanned with the PSR+ but have never been through the HySpex.
 
-\section{Introduction}
+\begin{center}
+\rule{0.85\textwidth}{0.4pt}
+\end{center}
 
-\IEEEPARstart{T}{he} amount of water that stays liquid in soil below the bulk
-freezing point sets how frozen ground conducts heat, deforms under load, and
-releases carbon on thaw. Its dependence on temperature is the soil freezing
-characteristic curve. A compilation of \num{416} measured curves drawn from
-\num{254} publications between 1921 and 2021 records methods based on nuclear
-magnetic resonance, permittivity and time domain reflectometry, calorimetry,
-dilatometry, and neutron scattering~\cite{Devoie_2022}. Every one of them
-requires contact with the soil. The nearest approach from the measurement side
-is dielectric spectroscopy, which estimates ice content in frozen porous media
-from the permittivity spectrum~\cite{Bittelli_2004}. Geophysical imaging of the
-same quantity through spectral induced polarization is established for
-seasonally frozen ground~\cite{Maierhofer_2024,Wu_2017}, and dielectric mixing
-models that parameterize unfrozen water underpin microwave remote sensing of
-frozen soil~\cite{Mironov_2004,Bakian_Dogaheh_2025,Wu_2022,Wang_2024}.
+\section{The gap}
 
-Physical models of soil reflectance have matured in parallel. The MARMIT family
-represents wet soil as a dry substrate beneath a water film whose thickness
-sets the strength of the water absorption
-features~\cite{Bablet_2018,Dupiau_2022}, two-flux theory yields transformed
-reflectances linear in water content in the shortwave
-infrared~\cite{Sadeghi_2015}, and the Hapke formulation has been extended
-across the spectrum to characterize soil physical properties~\cite{Ding_2022}.
-These strands were recently unified into a single model spanning dry and wet
-conditions~\cite{Ding_2026}. That model, like every predecessor, treats water in
-one phase only, and its systematic validation covers \num{219} soil samples.
-The soil radiative transfer literature therefore stops at the temperature where
-frozen ground becomes interesting, and the freezing literature stops on the
-other side of the same boundary.
+A compilation of \num{416} measured soil freezing curves drawn from \num{254}
+publications between 1921 and 2021 lists every method the field uses: nuclear
+magnetic resonance, time domain reflectometry, calorimetry, dilatometry,
+neutron scattering~\cite{Devoie_2022}. All require contact. The closest optical
+neighbour is dielectric spectroscopy, which is electrical rather than
+optical~\cite{Bittelli_2004}.
 
-\subsection{A structured survey of the surrounding literature}
+To check whether that is a real gap or an impression, we assembled \num{9021}
+publications and cross-tabulated sensing method against soil property.
+Reflectance spectroscopy is the single largest method in the corpus with
+\num{1833} works. Unfrozen water is an active subject with \num{230} works,
+growing from seven publications per five-year interval in 2000 to \num{105} in
+the interval beginning 2020. Their intersection contains \emph{one} paper
+against \num{46.7} expected if the two were independent, and that paper is
+about snow. The mid-infrared equivalent is empty.
 
-To test whether that impression survives contact with the record, we assembled
-\num{9021} works from ten topic queries spanning soil spectroscopy, freezing
-curves, permafrost remote sensing, soil radiative transfer, geoelectrical
-methods, and pedotransfer functions, and cross-tabulated sensing modality
-against soil state over titles and abstracts. Fig.~\ref{fig:kg} shows the
-result. Reflectance spectroscopy is the largest modality in the corpus
-(\num{1833} works) and unfrozen water is an active state with \num{230} works,
-yet their intersection contains a single publication against \num{46.7}
-expected under independence, the largest proportional deficit in the matrix.
-The corresponding cell for mid-infrared spectroscopy is empty. The same column
-is well occupied by calorimetry and magnetic resonance (\num{40} works),
-dielectric methods (\num{27}), and resistivity (\num{15}).
+The same corpus shows the gap is not for want of capability. Optical
+spectroscopy already accounts for \SI{53}{\percent} of the soil carbonate
+literature, \SI{49}{\percent} of cation exchange capacity, \SI{42}{\percent} of
+pH, and \SI{39}{\percent} of organic carbon. Where it is absent is precisely
+the physical state variables of frozen ground: ice content, zero of \num{169}
+works; unfrozen water, one of \num{179}; thermal conductivity, one of \num{98}.
 
-The deficit is not explained by lack of interest. Work on unfrozen water grew
-from seven publications per five-year interval in 2000 to \num{105} in the
-interval beginning 2020, while the optical count stayed at zero throughout, and
-recent reviews document an active effort to predict the quantity from index
-properties by statistical means~\cite{Li_2026,Ren_2023}. Nor is the deficit
-explained by optical spectroscopy being immature: the same corpus shows it
-already accounts for \SI{53}{\percent} of the carbonate literature,
-\SI{49}{\percent} of cation exchange capacity, \SI{42}{\percent} of soil pH,
-and \SI{39}{\percent} of soil organic carbon, in keeping with the large
-laboratory calibration efforts of the past
-decade~\cite{Wijewardane_2018,Dangal_2019,Safanelli_2025}. Where it is absent
-is precisely the physical state variables of frozen ground, namely ice content
-(\num{0} of \num{169} works), unfrozen water (\num{1} of \num{179}), and
-thermal conductivity (\num{1} of \num{98}).
+There is a mechanical reason. Sentinel-2 carries no band between \num{945} and
+\SI{1374}{\nano\meter} and none between \num{1374} and \SI{1610}{\nano\meter}.
+Landsat carries none between \num{870} and \SI{1610}{\nano\meter}. The
+wavelengths where liquid water and ice differ fall in the gaps of the
+instruments most of the field uses. The measurement has been invisible to the
+standard toolkit.
 
-Section~\ref{sec:sensors} offers a mechanical explanation. The multispectral
-satellites that dominate land remote sensing carry no bands in the spectral
-regions where the liquid and ice features differ, so the measurement has been
-inaccessible to the instruments most investigators use.
+\section{What the physics says}
 
-\begin{figure}[!t]
-\centering
-\includegraphics[width=\columnwidth]{figures/fig_kg_matrix.pdf}
-\caption{Co-occurrence of sensing modality and soil state across \num{9021}
-works. Each cell reports the observed number of publications addressing both,
-with the count expected under independence in parentheses, and is shaded by the
-base-two logarithm of their ratio. The solid box marks reflectance spectroscopy
-crossed with unfrozen water, which contains one work against \num{46.7}
-expected; the dotted box marks the corresponding mid-infrared cell, which is
-empty. The unfrozen water column is otherwise occupied by methods that require
-contact with the soil.}
-\label{fig:kg}
-\end{figure}
+Liquid water absorbs near \num{1450} and \SI{1940}{\nano\meter}; ice absorbs
+near \num{1500} and \SI{2020}{\nano\meter}~\cite{Warren_2008}. Representing the
+illuminated volume as a dry substrate beneath a water film of equivalent
+thickness $L$, and mixing the two phases by their liquid fraction $f$, a
+two-pass attenuation gives a logarithmic band ratio
+\[
+I(f) = \ln\frac{R(\lambda_2,f)}{R(\lambda_1,f)},
+\qquad
+\frac{\partial I}{\partial f} = 2L\left[(\alpha_i-\alpha_w)_{\lambda_2}-(\alpha_i-\alpha_w)_{\lambda_1}\right],
+\]
+which cancels the substrate and is exactly linear in the quantity we want.
+Table~\ref{tab:tiers} gives three usable band pairs. The absorption ordering
+between liquid and ice reverses within each pair, which is what makes the ratio
+informative.
 
-\subsection{Contributions}
-
-\begin{enumerate}
-  \item A three-phase forward model of soil reflectance in which the mineral
-        matrix, the adsorbed liquid film, and the ice phase are represented
-        explicitly, extending the wet-soil radiative transfer lineage across
-        the phase boundary at which it currently terminates.
-  \item A phase-partition index derived from that model, linear in the liquid
-        fraction of pore water and invariant to albedo, defined in three band
-        pairs whose differing absorption strengths suit dry, moist, and
-        saturated organic soils.
-  \item Evidence for the index in archived field spectra that were collected
-        for an unrelated purpose, together with a demonstration of the
-        surface-melt confound that limits uncontrolled measurements.
-  \item An applicability analysis over \num{17612} layers of a national soil
-        library, and an instrument-requirements analysis identifying which
-        sensors can measure the index and which band pair survives atmospheric
-        transmission.
-\end{enumerate}
-
-\section{Physical Basis}
-\label{sec:physics}
-
-\subsection{Optical contrast between liquid water and ice}
-
-Liquid water and ice differ in their optical constants throughout the
-reflective infrared~\cite{Warren_2008}. The liquid combination bands near
-\SI{1450}{\nano\meter} and \SI{1940}{\nano\meter} shift and sharpen toward the
-crystalline ice features near \SI{1500}{\nano\meter} and
-\SI{2020}{\nano\meter}. Table~\ref{tab:alpha} lists the absorption coefficients
-at the wavelengths used below, computed as $\alpha = 4\pi k / \lambda$ from the
-published compilation for ice~\cite{Warren_2008} and the corresponding
-compilation for liquid water. Within each pair the ordering of liquid and ice
-absorption reverses, which is the property the index exploits.
-
-\begin{table}[!t]
-\caption{Absorption Coefficients of Liquid Water and Ice}
-\label{tab:alpha}
-\centering
-\begin{tabular}{lrrr}
+\begin{table}[h]
+\centering\small
+\caption{The three band pairs, from published optical constants.}
+\label{tab:tiers}
+\begin{tabular}{llrrp{6.2cm}}
 \toprule
-$\lambda$ (nm) & liquid (mm$^{-1}$) & ice (mm$^{-1}$) & ice / liquid \\
+tier & $\lambda$ (nm) & liquid & ice & character \\
+     &                & \multicolumn{2}{c}{($\mathrm{mm}^{-1}$)} & \\
 \midrule
-1200 & 0.126 & 0.070 & 0.56 \\
-1250 & 0.111 & 0.130 & 1.17 \\
-1450 & 3.149 & 1.831 & 0.58 \\
-1500 & 1.883 & 4.550 & 2.42 \\
-1940 & 12.375 & 6.903 & 0.56 \\
-2020 & 5.425 & 9.742 & 1.80 \\
+1 & 1450 / 1500 & 3.149 / 1.883 & 1.831 / 4.550 & strongest signal; \SI{1450}{\nano\meter} sits inside atmospheric water vapour, so laboratory and contact only \\
+2 & 1200 / 1250 & 0.126 / 0.111 & 0.070 / 0.130 & about twenty times weaker, but clear of vapour absorption and therefore the form available from orbit \\
+3 & 1940 / 2020 & 12.375 / 5.425 & 6.903 / 9.742 & very strong but saturates in wet soil \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\subsection{Three-phase forward model and the index}
+For a realistic silt freezing from all liquid to one quarter liquid, tier one
+predicts a \SI{22}{\percent} to \SI{33}{\percent} relative change in
+reflectance. The pair at \num{970} and \SI{1030}{\nano\meter} that the visible
+and near-infrared literature might suggest gives under \SI{1}{\percent} and is
+not usable.
 
-Following the multilayer treatment of wet soil~\cite{Bablet_2018,Dupiau_2022},
-we represent the illuminated volume as a dry substrate of reflectance $R_d$
-overlain by a film of total water of equivalent thickness $L$, and we let the
-film be a mixture of liquid and ice. Writing $f$ for the liquid fraction of the
-pore water along the photon path, the effective absorption coefficient at
-wavelength $\lambda$ is
-\begin{equation}
-\alpha_{\mathrm{eff}}(\lambda,f) = f\,\alpha_w(\lambda) + (1-f)\,\alpha_i(\lambda),
-\label{eq:mix}
-\end{equation}
-and a two-pass attenuation through the film gives
-\begin{equation}
-R(\lambda,f) = R_d(\lambda)\,\exp\!\left[-2\,\alpha_{\mathrm{eff}}(\lambda,f)\,L\right].
-\label{eq:refl}
-\end{equation}
-For a pair of wavelengths $(\lambda_1,\lambda_2)$ the logarithmic band ratio
-\begin{equation}
-I(f) = \ln\frac{R(\lambda_2,f)}{R(\lambda_1,f)}
-\label{eq:index}
-\end{equation}
-removes the substrate term whenever $R_d$ is spectrally flat between the two
-bands, and substituting~\eqref{eq:mix} and~\eqref{eq:refl} yields
-\begin{equation}
-I(f) = \ln\frac{R_d(\lambda_2)}{R_d(\lambda_1)}
-  - 2L\left[\alpha_{\mathrm{eff}}(\lambda_2,f) - \alpha_{\mathrm{eff}}(\lambda_1,f)\right],
-\label{eq:expanded}
-\end{equation}
-which is exactly linear in $f$ with slope
-\begin{equation}
-\frac{\partial I}{\partial f} = 2L\left[(\alpha_i - \alpha_w)_{\lambda_2}
-                                       - (\alpha_i - \alpha_w)_{\lambda_1}\right].
-\label{eq:slope}
-\end{equation}
-Linearity in the retrieved quantity, and cancellation of the substrate term,
-are the reasons to prefer the ratio over a band depth. The slope scales with
-the film thickness $L$, which is why the analysis below reports results across
-a fourfold range of $L$.
+\section{The signal is already in our data}
 
-\subsection{Three band pairs}
+We applied the index to spectra collected at Poker Flat for the first paper,
+which were never gathered with this question in mind.
 
-Equation~\eqref{eq:slope} and Table~\ref{tab:alpha} define a natural tiering.
-The pair at \num{1450} and \SI{1500}{\nano\meter} gives the largest slope and
-is the primary form of the index. For a film of \SI{0.1}{\milli\meter} and a
-freeze-out from all liquid to one quarter liquid it produces relative
-reflectance changes of \SI{22}{\percent} to \SI{33}{\percent}. The pair at
-\num{1940} and \SI{2020}{\nano\meter} is stronger still but saturates once $L$
-exceeds about \SI{0.2}{\milli\meter}. The pair at \num{1200} and
-\SI{1250}{\nano\meter} is roughly twenty times weaker and remains unsaturated
-in saturated organic soils where the other pairs are opaque. The pair at
-\num{970} and \SI{1030}{\nano\meter}, which the visible and near-infrared
-literature might suggest, produces less than \SI{1}{\percent} change at
-film-scale path lengths and is not usable.
+\begin{itemize}\itemsep2pt
+\item Unfrozen active-layer horizons, \num{36} groups: median index
+      \num{0.062}. Frozen core groups at or below \SI{-2}{\degreeCelsius},
+      seven groups: median \num{-0.264}. Separated at $p = \num{7e-5}$ by
+      permutation over sample groups.
+\item A saturated peat horizon at \SI{-12.5}{\degreeCelsius} reads on the
+      liquid side under tier one, exactly the opacity failure the model
+      predicts for very wet organic soil. Tier two recovers it, and separates
+      all groups at $p = \num{1e-5}$.
+\item Exposed thaw faces measured in the field are indistinguishable from
+      unfrozen horizons ($p = \num{0.82}$). Surface melt masks the interior
+      state. This is why the measurement must be made under controlled
+      conditions rather than in a soil pit.
+\end{itemize}
 
-\section{Data}
-\label{sec:data}
+Two further results place the idea at national scale. Across \num{17612} soil
+layers of the public laboratory library, the predicted index change exceeds a
+three-sigma detection threshold for \SI{97}{\percent} to \SI{99}{\percent} of
+layers, and permafrost-order soils give the largest response of any group. The
+implied resolution is \SI{0.017}{\cubic\centi\meter\per\cubic\centi\meter} of
+volumetric water, comparable to the contact instruments the field currently
+relies on.
 
-\subsection{Field spectra and characterized cores}
+\section{What we already have}
 
-We acquired field measurements at Poker Flat Research Range (\ang{65.12}~N,
-\ang{147.43}~W), interior Alaska, in a zone of discontinuous permafrost. The
-active-layer dataset comprises \num{285} spectra over \num{42} site and depth
-groups at seven sites, recorded with a PSR+ 3500 spectroradiometer spanning
-\SIrange{350}{2500}{\nano\meter} in \num{2151} channels, in standoff geometry
-over freshly exposed soil faces at fixed depth intervals. We acquired a separate set of
-\num{95} spectra on frozen core material from three deep boreholes, logging the
-sample temperature at each scan, spanning
-\SI{-14.7}{\degreeCelsius} to \SI{1.2}{\degreeCelsius} over \num{18} site and
-depth groups. The cores are characterized under an established
-cryostratigraphic protocol~\cite{Iwahana_2014}, and \num{406} logged intervals
-across ten boreholes carry gravimetric water content, volumetric ice content,
-dry and wet density, saturation, organic and carbonate loss on ignition, pH,
-conductivity, stable water isotopes, grain size, and cryostructure.
+\begin{table}[h]
+\centering\small
+\caption{Data in hand. Only the last row requires new fieldwork.}
+\label{tab:data}
+\begin{tabular}{p{4.3cm}p{4.0cm}p{6.4cm}}
+\toprule
+holding & extent & what it gives us \\
+\midrule
+Poker Flat field spectra &
+\num{285} active-layer spectra, \num{95} frozen-core spectra with logged
+temperature &
+the preliminary evidence above \\
+\addlinespace
+\textbf{Physical samples in the laboratory} &
+the 2025 Poker Flat collection, scanned with PSR+, never scanned with HySpex &
+\textbf{an experiment available now, without fieldwork} \\
+\addlinespace
+Core characterization &
+\num{406} logged intervals, ten boreholes &
+water content, ice content, density, organic content, salinity, cryostructure
+for every specimen \\
+\addlinespace
+Public laboratory library &
+\num{76813} mid-infrared and \num{23647} reflective spectra with paired
+properties &
+national-scale detectability and the population context \\
+\addlinespace
+Measured freezing curves &
+\num{416} curves, \num{869202} points &
+independent comparison for anything we retrieve \\
+\addlinespace
+Ground temperature records &
+one station 2003 to 2026, three network sites 2017 to 2026 &
+the temperatures the ground actually occupies, which set the experiment \\
+\addlinespace
+Baseline specimen scans &
+\num{12} fabricated specimens, December 2025 &
+protocol development and the frost result \\
+\addlinespace
+August 2026 campaign &
+new Poker Flat samples &
+independent specimens spanning the natural property range \\
+\bottomrule
+\end{tabular}
+\end{table}
 
-\subsection{National laboratory library}
+\section{The experiment, and why it can start now}
 
-We drew laboratory spectra and paired properties from an open soil spectral
-library~\cite{Safanelli_2025}. The mid-infrared subset used here comprises
-\num{76813} layers grouped into \num{20716} pedons. Restricting to layers that
-carry both water retention endpoints at \SI{33}{\kilo\pascal} and
-\SI{1500}{\kilo\pascal} together with clay and organic carbon gives \num{17612}
-layers across \num{3708} pedons, of which \num{116} layers in \num{35} pedons
-fall in the permafrost order. For comparison we assembled a parallel visible and
-near-infrared set of \num{23647} spectra spanning the same
-\SIrange{350}{2500}{\nano\meter} interval as the field instrument.
+\subsection{The samples we already hold}
 
-\subsection{Independent freezing curves}
+The 2025 Poker Flat samples sit in the laboratory with PSR+ spectra attached
+and no HySpex measurements. Running them through the HySpex would produce three
+things at once: a cross-sensor comparison between a contact spectroradiometer
+and an imaging spectrometer on identical material, imaging rather than point
+measurements so that within-sample heterogeneity becomes visible, and a second
+independent look at the same specimens whose properties are already
+characterized. None of this requires waiting for August.
 
-For external comparison we used a compilation of \num{416} measured curves and
-\num{869202} points~\cite{Devoie_2022}. Quality control requiring at least eight points, a warmest point above
-\SI{-0.2}{\degreeCelsius}, and coverage colder than \SI{-3}{\degreeCelsius}
-leaves \num{195} curves. Only ten of the \num{416} are silt-rich or organic,
-and none of the silt-rich entries records an organic content, so the
-compilation is thin in exactly the material this study targets.
+The one thing we need to establish before designing around them is their
+physical state, that is whether they were air dried, kept moist, or kept frozen,
+and whether enough material remains per horizon to remold. That determines
+whether they serve as intact specimens or as source material at prescribed
+density and saturation.
 
-\subsection{Ground thermal regime}
+\subsection{The temperature ladder}
 
-We obtained soil temperature and moisture records from the monitoring station at
-Little Chena Ridge, \SI{32}{\kilo\meter} from the field site, comprising
-\num{5469} daily values at \SI{5}{\centi\meter} depth from 2003 to 2026 with
-companion series at \num{20} and \SI{51}{\centi\meter}. To test whether one
-station generalizes, we added soil temperature at half-hourly resolution from
-the three instrumented sites of the National Ecological Observatory Network in
-interior Alaska, Bonanza Creek, Delta Junction, and Healy, restricted to the
-shallowest sensor level and to records passing the network quality flag.
+The baseline protocol froze specimens on dry ice to \SI{-60}{\degreeCelsius}
+and accepted a scan only when the centre thermocouple read at or below
+\SI{-20}{\degreeCelsius}. We propose changing this, for a reason that comes out
+of the ground records rather than convenience. At \SI{-20}{\degreeCelsius}
+almost all the water is already ice, so the liquid fraction sits at its
+residual minimum and the index is being read where it carries the least
+information. It is also a state the ground rarely occupies: at the two boreal
+forest network sites, \SI{86}{\percent} and \SI{88}{\percent} of all sub-zero
+time is warmer than \SI{-5}{\degreeCelsius}.
 
-\section{Methods}
+We propose sampling the ladder from the residence-time distribution of the
+ground: closely spaced between \SI{0}{\degreeCelsius} and
+\SI{-2}{\degreeCelsius} where the soil spends most of its frozen life and the
+index changes fastest, sparser out to \SI{-5}{\degreeCelsius}, and a small
+number of colder points retained deliberately, because the exposed tundra site
+does reach \SI{-20}{\degreeCelsius} and we want that case represented.
 
-\subsection{Index computation and quality control}
+\subsection{Frost}
 
-The index follows~\eqref{eq:index} with reflectance averaged over
-\SI{\pm5}{\nano\meter} about each band center. Spectra are rejected when any
-channel in the continuum interval falls at or below \SI{0.05}{\percent}
-reflectance or exceeds \SI{100}{\percent}, both of which indicate detector
-saturation or a failed reference rather than a physical measurement.
+The December baseline compared specimens scanned with surface frost retained
+against specimens with the frost removed, and found clear differences across
+all three soil types. Our archived field spectra show the same thing from the
+other direction: thaw faces read as unfrozen. Surface state dominates the
+measurement, and removing frost immediately before acquisition is the single
+most important procedural control. The revised protocol already does this.
 
-\subsection{Unit of independence}
+\subsection{How the two instruments divide the work}
 
-Each specimen contributes several spectra and each site and depth group several
-replicates, so the group rather than the spectrum is the unit of statistical
-independence. We compare group medians throughout, and every permutation
-test shuffles group labels. We registered this protocol before running any
-comparison.
+The PSR+ with a contact probe supplies its own illumination and covers
+\SIrange{350}{2500}{\nano\meter}, which makes it the reference instrument for
+the physics: it sees all three band pairs at high signal-to-noise on a small
+spot. The HySpex covers \SIrange{400}{1000}{\nano\meter} at
+\SI{1.2}{\nano\meter} and \SIrange{960}{2500}{\nano\meter} at
+\SI{1.7}{\nano\meter}, also spanning all three pairs, but as an image. That
+lets us map the index across a specimen surface and see whether the phase
+partition is spatially uniform, which matters because ice segregation is not
+uniform in real soil. Agreement between the two instruments on the same
+specimens is itself a result worth reporting, and it is the step that carries
+the laboratory measurement toward airborne and orbital imaging spectrometers.
 
-\subsection{Two-anchor reconstruction}
+\section{Why this fits IEEE Transactions on Geoscience and Remote Sensing}
 
-To quantify how much of a freezing curve the two laboratory retention endpoints
-determine, each endpoint is mapped to a temperature through the Clapeyron
-relation, whose coefficient $\rho_w L_f / T_0$ evaluates to
-\SI{1.223}{\mega\pascal\per\kelvin}. This places \SI{33}{\kilo\pascal} at
-\SI{-0.027}{\degreeCelsius} and \SI{1500}{\kilo\pascal} at
-\SI{-1.227}{\degreeCelsius}, consistent with the similarity between freezing
-and retention curves established by earlier
-work~\cite{Koopmans_1966,Spaans_1996}. We solve a van Genuchten form exactly
-through both anchors and score it against the measured points, separately inside
-the bracketed interval and beyond it.
+The journal has published laboratory-derived physical models of frozen soil
+before, in the microwave domain, where a dielectric mixing model parameterizing
+unfrozen water became a standard input to sensor forward
+models~\cite{Mironov_2004}. Two recent papers in the same family address
+exactly our quantity through microwave measurements~\cite{Wu_2022,Wang_2024}.
+The optical counterpart does not exist. Framing matters: presented as a soil
+study this belongs in a soils journal, but presented as a forward model, an
+index, and an instrument requirement it is squarely within the journal's scope.
 
-\subsection{National applicability}
+\section{What we are asking}
 
-For each library layer the liquid fraction remaining at the cold anchor is
-$f = \theta_{1500} / \theta_{33}$, so the freeze-out across the bracketed
-interval involves no extrapolation. The predicted index change follows
-from~\eqref{eq:slope} with film thickness scaled by volumetric water content at
-field capacity and calibrated so that the median mineral soil corresponds to
-\SI{0.1}{\milli\meter}. We assess detectability against a three-sigma
-threshold at a contact-probe noise level and, separately, at the replicate noise
-measured in the field spectra.
-
-\section{Preliminary Results}
-
-\subsection{The index separates frozen from unfrozen material}
-
-Applied to the archived Poker Flat spectra, the primary index gives a median of
-\num{0.062} over \num{36} unfrozen active-layer groups and \num{-0.264} over the
-seven core groups at or below \SI{-2}{\degreeCelsius}, a separation significant
-at $p = \num{7e-5}$ by group-level permutation. The ordering is the one the
-forward model predicts. Core groups measured near \SI{-1}{\degreeCelsius} fall
-on the liquid side, which is expected behavior rather than a failure, since most
-pore water in silt remains liquid at that temperature.
-
-Two further results bear on the method's limits. A saturated surface peat
-horizon at \SI{-12.5}{\degreeCelsius} reads on the liquid side under the primary
-index, the opacity failure the forward model anticipates at high water content,
-and the weak band pair recovers it at \num{-0.043}. Across all groups the weak
-pair separates unfrozen from frozen material at $p = \num{1e-5}$ while passing
-quality control on every replicate. Separately, spectra of exposed thaw faces in
-the field are statistically indistinguishable from unfrozen horizons
-($p = \num{0.82}$), which demonstrates in data the surface-melt confound that
-prevents uncontrolled field measurements from resolving the phase partition.
-
-\subsection{Retention endpoints are predictable from laboratory spectra}
-
-Under pedon-grouped ten-fold cross-validation with nested component selection,
-partial least squares regression predicts the cold retention endpoint at
-$R^2 = 0.78 \pm 0.03$ and the warm endpoint at $R^2 = 0.56 \pm 0.13$. The
-difference between random and grouped splits is \num{0.01} and \num{0.03}
-respectively, so leakage is negligible in this dataset. The endpoint that
-controls the freezing interval is the one predicted well.
-
-\subsection{Two anchors nearly determine the curve}
-
-Across \num{60} measured curves, a van Genuchten form solved through the two
-anchors reconstructs the freezing curve beyond the bracketed interval with a
-normalized root mean square error of \num{0.024} when the shape parameter is
-correct, matching the \num{0.025} achieved by a free fit to all points. With a
-fixed default shape parameter the error is \num{0.087}, and across the range of
-shape parameters consistent with the anchors the worst case is \num{0.230}.
-Organic soils are more sensitive than mineral soils, at \num{0.150} against
-\num{0.068}. The shape parameter is therefore the single quantity the two
-anchors fail to determine.
-
-\subsection{The index is detectable across the national soil population}
-
-Propagating the forward model across the \num{17612} library layers, the
-predicted index change over the freeze-out interval exceeds a three-sigma
-contact-probe threshold for \SI{97}{\percent} to \SI{99}{\percent} of layers,
-and this conclusion is stable across a fourfold variation in the assumed film
-thickness. Permafrost-order soils give the largest response, with a median index
-change of \num{0.60} against \num{0.35} for the population at a reference film
-thickness, because they freeze a larger share of their field-capacity water
-within the bracketed interval, \SI{67}{\percent} against \SI{48}{\percent}
-nationally. At the replicate noise measured in standoff field spectra the
-detectable fraction falls to between \SI{0}{\percent} and \SI{43}{\percent},
-which establishes controlled illumination as a requirement rather than a
-convenience.
-
-The corresponding resolution follows from~\eqref{eq:slope}. At contact-probe
-noise the minimum detectable change in liquid fraction is \num{0.05} at three
-sigma for the median soil, equivalent to
-\SI{0.017}{\cubic\centi\meter\per\cubic\centi\meter} of volumetric water.
-
-\subsection{The retrievable interval is the interval the ground occupies}
-
-The interval in which the physics predicts the strongest signal is also the
-interval the laboratory retention endpoints determine. Whether it is the
-interval the ground occupies depends on the site. At the Little Chena Ridge
-station, \SI{32}{\kilo\meter} from the field site, the ground at
-\SI{5}{\centi\meter} is below \SI{0}{\degreeCelsius} on \SI{46}{\percent} of
-days yet reaches only \SI{-5.6}{\degreeCelsius}, and \SI{70}{\percent} of its
-sub-zero time falls inside the bracketed interval. That station is a
-snow-insulated ridge and represents the warm end of the range. Across the
-three instrumented sites of the National Ecological Observatory Network in
-interior Alaska, using daily means from the shallowest sensor over the
-freeze-up season, the share of sub-zero time warmer than
-\SI{-5}{\degreeCelsius} is \SI{86}{\percent} at Bonanza Creek and
-\SI{88}{\percent} at Delta Junction, both boreal forest, but \SI{34}{\percent}
-at Healy, an exposed tundra site reaching \SI{-20}{\degreeCelsius}. The share
-inside the tighter bracketed interval ranges from \SI{13}{\percent} to
-\SI{39}{\percent} at these sites.
-
-Fig.~\ref{fig:conv} shows the comparison. The retrieval therefore addresses
-most of the cold season in snow-insulated boreal terrain of the kind sampled
-at Poker Flat, and a minority of it in exposed tundra. This bounds the
-applicability of the method by site type rather than by soil type, and it is a
-constraint the controlled experiments cannot remove.
-
-\begin{figure}[!t]
-\centering
-\includegraphics[width=\columnwidth]{figures/fig_convergence.pdf}
-\caption{Temperature interval addressed by the retrieval, against the
-conditions the ground occupies. (a) Residence time of soil temperature at
-\SI{5}{\centi\meter} at Little Chena Ridge over \num{23} years, with the
-interval bracketed by the laboratory retention endpoints shaded. (b) The
-phase-partition index of~\eqref{eq:index}, exactly linear in the liquid
-fraction of pore water. (c) Share of sub-zero residence time warmer than
-\SI{-5}{\degreeCelsius} and warmer than \SI{-1.23}{\degreeCelsius} at four
-stations. The boreal forest sites cluster near \SI{86}{\percent} to
-\SI{100}{\percent} on the first measure; the exposed tundra site at Healy is
-the outlier at \SI{34}{\percent}.}
-\label{fig:conv}
-\end{figure}
-
-\section{Instrument Requirements}
-\label{sec:sensors}
-
-The band pairs fall in different atmospheric regimes. The bands at \num{1450}
-and \SI{1940}{\nano\meter} lie inside strong atmospheric water vapor absorption,
-so the primary and the strongest pairs are laboratory and contact measurements.
-Both bands of the weak pair at \num{1200} and \SI{1250}{\nano\meter} lie in a
-clean atmospheric window, which makes it the form of the index available from
-airborne and orbital platforms, at the cost of roughly a twentyfold reduction in
-slope.
-
-Sensor coverage is equally decisive. Sentinel-2 carries no band between
-\num{945} and \SI{1374}{\nano\meter} and none between \num{1374} and
-\SI{1610}{\nano\meter}, and Landsat 8 and 9 carry none between \num{870} and
-\SI{1610}{\nano\meter}. Neither can sample any of the three pairs. The
-measurement requires contiguous imaging spectroscopy, which is available from
-airborne sensors and from current orbital imaging spectrometers. This offers a
-mechanical explanation for the deficit in Fig.~\ref{fig:kg}: the instruments
-that dominate land remote sensing are blind to the contrast.
-
-\section{Discussion}
-
-% To be written once the controlled freezing experiments are complete. Planned
-% content: retrieval accuracy against the co-measured contact reference;
-% hysteresis between freezing and thawing branches; the boundary of the
-% retrievable regime measured rather than modeled; and freeze-induced
-% scattering as a confound, since the logarithmic ratio cancels neutral changes
-% in albedo but not spectrally structured ones, and its magnitude has not yet
-% been quantified.
-
-\section{Conclusion}
-
-% To be written once the experimental results are in hand.
-
-\section*{Data and Code Availability}
-
-All primary data are public. The soil spectral library is distributed under a
-Creative Commons attribution licence at \url{https://soilspectroscopy.org};
-this study uses release 1.2 of the combined tables and release 1.3 of the
-per-dataset tables, comprising \num{76813} mid-infrared and \num{23647}
-visible and near-infrared spectra with paired properties. The compilation of
-\num{416} measured freezing curves is archived at
-\url{https://doi.org/10.5281/zenodo.5592825}. Laboratory characterization
-records for the wider national survey are served at
-\url{https://ncsslabdatamart.sc.egov.usda.gov}. Soil temperature and moisture
-series are served by the National Water and Climate Center at
-\url{https://wcc.sc.egov.usda.gov/awdbRestApi}, station identifier
-947:AK:SNTL, and by the National Ecological Observatory Network at
-\url{https://data.neonscience.org}, products DP1.00041.001 and DP1.00094.001
-for sites BONA, DEJU, and HEAL. Optical constants for ice are tabulated at
-\url{https://atmos.uw.edu/ice_optical_constants}. Scene inventories for
-Sentinel-2 and Landsat were queried through
-\url{https://earth-search.aws.element84.com/v1}. Field spectra and core
-characterization records from Poker Flat Research Range are available from the
-corresponding author on reasonable request. Analysis code is available from the
-corresponding author.
+\begin{enumerate}\itemsep2pt
+\item Agreement that the phase-partition index is the right target for the next
+      paper, with the laboratory measurement as the core and the national
+      analysis as supporting scale.
+\item Access to the 2025 samples and confirmation of their physical state, so
+      that HySpex scanning can begin before the August campaign.
+\item A decision on the reference measurement for unfrozen water content, since
+      that choice sets the apparatus.
+\item A view on the one risk we cannot close by analysis. Freezing changes soil
+      structure through ice lensing and expansion, which alters scattering
+      independently of the phase partition. The band ratio cancels neutral
+      changes in brightness but not spectrally structured ones. A short
+      measurement at constant total water content would settle it, and we
+      propose doing that first.
+\end{enumerate}
 
 \bibliographystyle{IEEEtran}
 \bibliography{refs}
