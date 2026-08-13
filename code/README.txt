@@ -20,3 +20,8 @@ National-scale analyses
 Literature structure
   build_kg.py               modality by soil-state co-occurrence matrix
   analyse_kg.py             temporal trend, property coverage, venue analysis
+Multitemporal and field climatology
+  get_snotel.py             soil temperature and moisture series near the site
+  ladder_design.py          residence-time weighting that sets the laboratory
+                            temperature ladder from field climatology
+  stac_scan.py              shoulder-season optical scene availability
