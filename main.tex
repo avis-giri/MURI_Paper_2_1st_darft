@@ -198,14 +198,16 @@ eventual remote measurement therefore point at the same window.
 
 \section{Proposed method}
 
-\IfFileExists{figures/workflow.pdf}{%
 \begin{figure}[h]
 \centering
-\includegraphics[width=\textwidth]{figures/workflow.pdf}
-\caption{Proposed workflow, from field and fabricated samples through the two
-instruments, the temperature ladder, and the retrieval.}
+\includegraphics[width=\textwidth]{figures/workflow.png}
+\caption{Proposed workflow. Field cores and fabricated specimens feed the two
+instruments, each specimen is measured at a series of temperatures rather than
+one, and the ladder steps are spaced according to how long real ground spends at
+each temperature. The percentage quoted for the residence time applies to the
+autumn freeze-up rather than the whole year.}
 \label{fig:workflow}
-\end{figure}}{}
+\end{figure}
 
 Two instruments divide the work. In Alaska the PSR+ 3500 was used at canopy
 level under sunlight, which is why the field spectra carry atmospheric noise. In
@@ -227,8 +229,12 @@ steps are spaced according to how much time real ground spends at each
 temperature, so they cluster between \SI{0}{\degreeCelsius} and
 \SI{-2}{\degreeCelsius}, thin out to \SI{-5}{\degreeCelsius}, and include a few
 colder points to represent midwinter and exposed tundra. A thermocouple in the
-specimen gives the temperature, and a contact probe measurement gives the
-unfrozen water content that the optical retrieval is checked against.
+specimen gives the temperature, and a contact measurement gives the unfrozen
+water content that the optical retrieval is checked against. Which contact
+method to use is an open choice, since time domain reflectometry, calorimetry
+and magnetic resonance are all accepted, and its uncertainty between
+\SI{0}{\degreeCelsius} and \SI{-5}{\degreeCelsius} sets the bar the optical
+method has to clear. \textbf{(Need Dr.\ Baser's suggestion as we go.)}
 
 One procedural point is already settled by the December baseline scans. Frost
 forming on the specimen surface changes the spectrum noticeably, so it must be
@@ -245,9 +251,13 @@ the two instruments on identical material, spatial maps of the phase partition,
 and a second measurement on specimens whose properties are already known. None
 of this waits on the August campaign.
 
-Before designing around them we need to know their physical state, that is
-whether they were air dried, kept moist, or kept frozen, and how much material
-remains for each horizon.
+Before designing around them I need to know how many are still in usable
+condition, given that they have been unfrozen for some time, and whether
+refreezing them now would produce a structure representative of the original.
+It would also help to know which horizons the measurement most needs to work
+for, since the organic surface layer, the mineral active layer and the ice-rich
+transition zone behave very differently, and that would set the scanning order.
+\textbf{(Need Dr.\ Iwahana's suggestion as we go.)}
 
 \subsection{Fitting the natural samples to the experimental matrix}
 
@@ -285,67 +295,85 @@ volumetric ice (\si{\percent}) & 40 to 79, median 64 & not controlled & none \\
 \end{tabular}
 \end{table}
 
-I will need Dr. Baser's help here to find the right matrix design for our research. My suggestion is to extend the matrix downward in density,
-adding a low-density organic-rich arm that brackets the natural material, and to
-scan every available natural specimen so that the two sets can be compared
-directly.
+I will need Dr.\ Baser's help here to find the right matrix design for our
+research. My suggestion is to extend the matrix downward in density, adding a
+low-density organic-rich arm that brackets the natural material, and to scan
+every available natural specimen so that the two sets can be compared directly.
+There is a related question worth settling early: fabricated specimens are
+compacted from sieved, dried material and so have no cryostructure, while
+natural permafrost has ice lenses and layering built over centuries, and how far
+results carry from one to the other is not something I can judge.
+\textbf{(Need Dr.\ Iwahana's and Dr.\ Baser's suggestion as we go.)}
 
-\section{Where we need guidance from Dr.\ Iwahana and Dr.\ Baser}
+\section{Plan for scanning now}
+
+The point of this section is that scanning can begin immediately, run by
+students at the RSL while we are in Alaska, using the HySpex procedure already
+written for the December baseline. Nothing below requires a new protocol.
+
+\subsection{What runs unchanged from the existing procedure}
+
+The December session established the workflow: the SWIR sensor is powered on at
+least thirty minutes ahead so the detector reaches its operating temperature, a
+white reference and a dark frame are taken before each batch and repeated at the
+end, three specimens are scanned per batch, and twelve specimens are handled per
+session across four batches. Surface photographs are taken before and after each
+scan, and the session log records personnel, times, ambient temperature and
+humidity, every white reference, and any frost seen on a surface. All of this
+carries over without change.
+
+\subsection{The one change: unfrozen first}
+
+The December session scanned specimens frozen on dry ice. For the stored Poker
+Flat samples I suggest starting with room-temperature scans instead, for three
+reasons. It removes the frost problem entirely, so the first data are clean. It
+gives the direct comparison against the PSR+ field spectra, which were also
+taken unfrozen. And it establishes each sample's dry and unfrozen baseline,
+which the index needs as its reference point before any freezing run. Freezing
+runs follow once we are back and the ladder is set up.
+
+\subsection{What is needed from Dr.\ Baser's laboratory}
+
+\begin{enumerate}\itemsep2pt
+\item Access to the stored Poker Flat samples, with an inventory of what remains
+      for each site and depth.
+\item Confirmation of their condition and whether any have degraded or dried out
+      since collection.
+\item Sample containers matching the ones used in December, so the imaging
+      geometry and working distance stay identical and the two sets remain
+      comparable.
+\item The specimen preparation record for the twelve December baseline
+      specimens, so the natural and fabricated sets can be placed on the same
+      axes.
+\item Bench space and a balance for recording specimen mass before and after
+      each scan, which gives the water content at the time of measurement.
+\item A student trained on the December procedure, or time with one of us before
+      we leave.
+\end{enumerate}
+
+\subsection{Scanning order}
+
+Scan in the order that answers the most questions soonest. First the samples
+that already have both PSR+ spectra and full laboratory characterisation, since
+these give the cross-sensor comparison immediately. Then the remaining natural
+samples by depth, working from the organic surface layer down through the
+mineral active layer to the ice-rich transition. Then the twelve December
+specimens rescanned unfrozen, which ties the natural and fabricated sets
+together. Recording specimen mass and room temperature at each scan costs
+nothing and makes every measurement usable later.
+
+\section{Where I will need help}
 
 This work sits between soil physics, permafrost science and remote sensing, and
-the questions below are outside our group's expertise. They are the ones most
-likely to decide whether the result is sound.
-
-\subsection{Permafrost science}
-
-\begin{itemize}\itemsep3pt
-\item \textbf{Does freezing change the soil structure enough to confuse the
-      measurement?} When soil freezes, ice lenses form, particles aggregate,
-      and the material expands. All of these change how light scatters, quite
-      apart from the liquid-to-ice ratio we are trying to measure. Our ratio
-      cancels a uniform change in brightness but not a wavelength-dependent
-      one. We would like advice on how large this effect is likely to be in
-      the soils at Poker Flat, and whether a measurement at constant total
-      water content is the right way to isolate it.
-\item \textbf{Do remolded specimens mean anything for permafrost?} Fabricated
-      specimens are compacted from sieved, dried material, so they have no
-      cryostructure. Natural permafrost has lenses, reticulate ice, and
-      layering built over centuries. We would like an opinion on how far
-      results from remolded material can be carried over to intact permafrost,
-      and whether any of the archived cores could be measured intact instead.
-\item \textbf{Which horizons matter most?} The organic surface layer, the
-      mineral active layer, and the ice-rich transition zone behave very
-      differently. Guidance on which of these the measurement most needs to
-      work for would help us prioritise the scanning order.
-\item \textbf{Sample state.} How many sampels are in a good state to sample as it has been a while they have been in unfrozen state. Will freezing them now be an issue?
-\end{itemize}
-
-\subsection{Soil physics and geotechnics}
-
-\begin{itemize}\itemsep3pt
-\item \textbf{What is the accepted reference measurement?} We plan to check the
-      optical retrieval against a contact measurement of unfrozen water content.
-      Time domain reflectometry, calorimetry and nuclear magnetic resonance are
-      all used. We would like advice on which the geotechnical community would
-      accept as the standard, and on its uncertainty between
-      \SI{0}{\degreeCelsius} and \SI{-5}{\degreeCelsius}, since that sets the
-      bar the optical method must clear.
-\item \textbf{Extending the matrix downward in density.} Following
-      Table~\ref{tab:matrix}, whether a low-density organic arm can be
-      fabricated and compacted reproducibly, and what the practical lower limit
-      is.
-\item \textbf{Salinity.} Dissolved salts depress the freezing point and change
-      the shape of the curve. The natural samples have low conductivity, while
-      the fabricated matrix goes to \SI{10}{\percent} salt. Advice on which
-      salinities are realistic for interior Alaska, as opposed to coastal
-      permafrost, would help us set the range.
-\item \textbf{Curve shape for organic soils.} We currently fit a van Genuchten
-      form to the freezing curve. Initial analysis shows the shape parameter is the
-      one thing our data cannot determine, and that organic soils are twice as
-      sensitive to getting it wrong as mineral soils. We would welcome advice
-      on whether this form is appropriate for peat at all, and what the
-      alternatives are.
-\end{itemize}
+several of the choices ahead are outside my own expertise. Rather than list them
+all here, I have flagged them in the relevant places above. In short, the
+questions that matter most are how much freezing changes the way light scatters
+independently of the ice content, whether remolded specimens tell us anything
+about intact permafrost with its lenses and layering, which horizons the
+measurement most needs to work for, what the geotechnical community accepts as
+the reference measurement for unfrozen water, and whether the curve shape we fit
+suits peat at all. \textbf{(Need Dr.\ Iwahana's and Dr.\ Baser's guidance as we
+go.)}
 
 \section{Data available}
 
