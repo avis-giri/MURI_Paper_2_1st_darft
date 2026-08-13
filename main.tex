@@ -7,6 +7,7 @@
 \usepackage{booktabs}
 \usepackage{siunitx}
 \usepackage[caption=false,font=footnotesize]{subfig}
+\usepackage{url}
 \usepackage[hidelinks]{hyperref}
 
 \begin{document}
@@ -45,11 +46,11 @@ where the strong bands are opaque ($p = \num{1e-5}$). Propagating the forward
 model across \num{17612} soil layers of a national laboratory library, the
 predicted index change over the freeze-out interval exceeds a three-sigma
 contact-probe threshold for \SI{97}{\percent} to \SI{99}{\percent} of layers,
-with permafrost-order soils yielding the largest response. Twenty-three years
-of soil temperature records near the site show that the ground at
-\SI{5}{\centi\meter} spends all of its sub-zero time warmer than
-\SI{-5}{\degreeCelsius}, so the interval where the retrieval is expected to
-work and the interval the ground occupies coincide. A structured survey of
+with permafrost-order soils yielding the largest response. Records from four monitoring
+stations in interior Alaska place \SI{86}{\percent} to \SI{100}{\percent} of
+sub-zero residence time warmer than \SI{-5}{\degreeCelsius} at boreal forest
+sites, though only \SI{34}{\percent} at an exposed tundra site, which bounds
+where the retrieval addresses the conditions the ground occupies. A structured survey of
 \num{9021} publications finds one work at the intersection of reflectance
 spectroscopy and unfrozen water against \num{46.7} expected under independence.
 \end{abstract}
@@ -293,7 +294,11 @@ compilation is thin in exactly the material this study targets.
 We obtained soil temperature and moisture records from the monitoring station at
 Little Chena Ridge, \SI{32}{\kilo\meter} from the field site, comprising
 \num{5469} daily values at \SI{5}{\centi\meter} depth from 2003 to 2026 with
-companion series at \num{20} and \SI{51}{\centi\meter}.
+companion series at \num{20} and \SI{51}{\centi\meter}. To test whether one
+station generalizes, we added soil temperature at half-hourly resolution from
+the three instrumented sites of the National Ecological Observatory Network in
+interior Alaska, Bonanza Creek, Delta Junction, and Healy, restricted to the
+shallowest sensor level and to records passing the network quality flag.
 
 \section{Methods}
 
@@ -402,26 +407,42 @@ sigma for the median soil, equivalent to
 
 \subsection{The retrievable interval is the interval the ground occupies}
 
-At \SI{5}{\centi\meter} depth the ground near the field site is below
-\SI{0}{\degreeCelsius} on \SI{46}{\percent} of days across the record, yet its
-coldest observed value is \SI{-5.6}{\degreeCelsius}. All of its sub-zero time is
-warmer than \SI{-5}{\degreeCelsius} and \SI{70}{\percent} falls between
-\SI{0}{\degreeCelsius} and \SI{-1.23}{\degreeCelsius}, the interval the
-laboratory retention endpoints already bracket. Fig.~\ref{fig:conv} places the
-three constraints side by side. The interval in which the physics predicts the
-strongest signal, the interval the national retention measurements determine,
-and the interval the ground actually occupies are the same interval.
+The interval in which the physics predicts the strongest signal is also the
+interval the laboratory retention endpoints determine. Whether it is the
+interval the ground occupies depends on the site. At the Little Chena Ridge
+station, \SI{32}{\kilo\meter} from the field site, the ground at
+\SI{5}{\centi\meter} is below \SI{0}{\degreeCelsius} on \SI{46}{\percent} of
+days yet reaches only \SI{-5.6}{\degreeCelsius}, and \SI{70}{\percent} of its
+sub-zero time falls inside the bracketed interval. That station is a
+snow-insulated ridge and represents the warm end of the range. Across the
+three instrumented sites of the National Ecological Observatory Network in
+interior Alaska, using daily means from the shallowest sensor over the
+freeze-up season, the share of sub-zero time warmer than
+\SI{-5}{\degreeCelsius} is \SI{86}{\percent} at Bonanza Creek and
+\SI{88}{\percent} at Delta Junction, both boreal forest, but \SI{34}{\percent}
+at Healy, an exposed tundra site reaching \SI{-20}{\degreeCelsius}. The share
+inside the tighter bracketed interval ranges from \SI{13}{\percent} to
+\SI{39}{\percent} at these sites.
+
+Fig.~\ref{fig:conv} shows the comparison. The retrieval therefore addresses
+most of the cold season in snow-insulated boreal terrain of the kind sampled
+at Poker Flat, and a minority of it in exposed tundra. This bounds the
+applicability of the method by site type rather than by soil type, and it is a
+constraint the controlled experiments cannot remove.
 
 \begin{figure}[!t]
 \centering
 \includegraphics[width=\columnwidth]{figures/fig_convergence.pdf}
-\caption{Three independent constraints select the same temperature interval.
-(a) Residence time of soil temperature at \SI{5}{\centi\meter} near the field
-site over \num{23} years, with the interval bracketed by the laboratory
-retention endpoints shaded. (b) The phase-partition index of~\eqref{eq:index},
-exactly linear in the liquid fraction of pore water. (c) Share of sub-zero
-residence time falling inside the bracketed interval, between it and
-\SI{-5}{\degreeCelsius}, and colder.}
+\caption{Temperature interval addressed by the retrieval, against the
+conditions the ground occupies. (a) Residence time of soil temperature at
+\SI{5}{\centi\meter} at Little Chena Ridge over \num{23} years, with the
+interval bracketed by the laboratory retention endpoints shaded. (b) The
+phase-partition index of~\eqref{eq:index}, exactly linear in the liquid
+fraction of pore water. (c) Share of sub-zero residence time warmer than
+\SI{-5}{\degreeCelsius} and warmer than \SI{-1.23}{\degreeCelsius} at four
+stations. The boreal forest sites cluster near \SI{86}{\percent} to
+\SI{100}{\percent} on the first measure; the exposed tundra site at Healy is
+the outlier at \SI{34}{\percent}.}
 \label{fig:conv}
 \end{figure}
 
@@ -458,6 +479,29 @@ that dominate land remote sensing are blind to the contrast.
 \section{Conclusion}
 
 % To be written once the experimental results are in hand.
+
+\section*{Data and Code Availability}
+
+All primary data are public. The soil spectral library is distributed under a
+Creative Commons attribution licence at \url{https://soilspectroscopy.org};
+this study uses release 1.2 of the combined tables and release 1.3 of the
+per-dataset tables, comprising \num{76813} mid-infrared and \num{23647}
+visible and near-infrared spectra with paired properties. The compilation of
+\num{416} measured freezing curves is archived at
+\url{https://doi.org/10.5281/zenodo.5592825}. Laboratory characterization
+records for the wider national survey are served at
+\url{https://ncsslabdatamart.sc.egov.usda.gov}. Soil temperature and moisture
+series are served by the National Water and Climate Center at
+\url{https://wcc.sc.egov.usda.gov/awdbRestApi}, station identifier
+947:AK:SNTL, and by the National Ecological Observatory Network at
+\url{https://data.neonscience.org}, products DP1.00041.001 and DP1.00094.001
+for sites BONA, DEJU, and HEAL. Optical constants for ice are tabulated at
+\url{https://atmos.uw.edu/ice_optical_constants}. Scene inventories for
+Sentinel-2 and Landsat were queried through
+\url{https://earth-search.aws.element84.com/v1}. Field spectra and core
+characterization records from Poker Flat Research Range are available from the
+corresponding author on reasonable request. Analysis code is available from the
+corresponding author.
 
 \bibliographystyle{IEEEtran}
 \bibliography{refs}
