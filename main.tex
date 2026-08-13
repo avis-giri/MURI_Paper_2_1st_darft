@@ -69,9 +69,9 @@ narrow bands rather than a handful of wide ones.
 Second, the two research communities sit on opposite sides of the freezing
 point. Soil spectroscopy has built large reflectance libraries, but for dried,
 room-temperature samples. Frozen-ground science measures unfrozen water
-carefully, but with contact sensors. Many studies in this field  measured
-freezing curves published between 1921 and 2021 lists the methods the field
-uses, and all of them require contact with the soil~\cite{Devoie_2022}.
+carefully, but with contact sensors. A published compilation of freezing curves
+measured between 1921 and 2021 lists every method the field uses, and all of
+them require contact with the soil~\cite{Devoie_2022}.
 
 To check that this really is truly novel, I ran an
 automated screen over the titles and abstracts of soil and cryosphere papers
@@ -103,48 +103,71 @@ soil colour underneath drops out.
 
 Table~\ref{tab:tiers} gives the three usable wavelength pairs. Within each pair
 the absorption ordering flips between liquid and ice, which is what makes the
-ratio informative.
+ratio informative. Which pair is usable depends on how the spectrum was
+measured, because the atmosphere absorbs strongly at \SI{1450}{\nano\meter} and
+\SI{1940}{\nano\meter}. Under sunlight those wavelengths arrive at the ground
+already depleted, so only the \num{1200} and \SI{1250}{\nano\meter} pair is
+reliable outdoors. In the laboratory, where the lamp is a metre from the sample,
+all three are available.
 
 \begin{table}[h]
 \centering\small
 \caption{The three wavelength pairs, from published optical constants for ice
 and liquid water~\cite{Warren_2008}.}
 \label{tab:tiers}
-\begin{tabular}{llrrp{6.1cm}}
+\begin{tabular}{p{2.1cm}lrrp{5.4cm}}
 \toprule
 pair & $\lambda$ (nm) & liquid & ice & character \\
      &                & \multicolumn{2}{c}{($\mathrm{mm}^{-1}$)} & \\
 \midrule
-1 & 1450 / 1500 & 3.149 / 1.883 & 1.831 / 4.550 & strongest signal; the atmosphere absorbs at \SI{1450}{\nano\meter}, so this pair works in the laboratory but not from the air \\
-2 & 1200 / 1250 & 0.126 / 0.111 & 0.070 / 0.130 & about twenty times weaker, but the atmosphere is clear there, so this is the pair a satellite could use \\
-3 & 1940 / 2020 & 12.375 / 5.425 & 6.903 / 9.742 & very strong, but goes dark in wet soil \\
+outdoor and satellite & 1200 / 1250 & 0.126 / 0.111 & 0.070 / 0.130 & about twenty times weaker than the laboratory pair, but the atmosphere is clear here, so it is the only pair that works under sunlight \\
+\addlinespace
+laboratory & 1450 / 1500 & 3.149 / 1.883 & 1.831 / 4.550 & strongest signal, and the pair the experiment is built around; unusable outdoors because the atmosphere absorbs at \SI{1450}{\nano\meter} \\
+\addlinespace
+dry soil only & 1940 / 2020 & 12.375 / 5.425 & 6.903 / 9.742 & very strong, but goes dark once the soil is wet \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-For a silt freezing from fully liquid to one quarter liquid, the first pair
+For a silt freezing from fully liquid to one quarter liquid, the laboratory pair
 predicts a change in reflectance of \SI{22}{\percent} to \SI{33}{\percent},
 which is far above measurement noise.
 
 \section{The signal is already in our Poker Flat data}
 
-We applied this to spectra collected for the previous paper, which were never
-taken with this question in mind.
+I applied this to spectra collected for the previous paper, which were never
+taken with this question in mind. Those spectra were measured at canopy level
+under sunlight, with the instrument held above the soil rather than touching it,
+so the atmospheric absorption regions are noisy. That decides which pair to
+trust: the outdoor pair sits in a clean part of the spectrum and every sample
+group passes quality control, while the laboratory pair is degraded and only a
+fifth of the individual spectra survive screening.
 
-\begin{itemize}\itemsep2pt
-\item Unfrozen active-layer horizons, \num{36} sample groups, give a median
-      index of \num{0.062}. Frozen core groups at or below
-      \SI{-2}{\degreeCelsius}, seven groups, give \num{-0.264}. The two
-      populations separate with a probability of \num{7e-5} of arising by
-      chance.
+\begin{itemize}\itemsep3pt
+\item \textbf{Outdoor pair.} Unfrozen active-layer horizons give a median index
+      of \num{0.055}, frozen cores \num{0.014}. Every sample group passes
+      screening, and the two populations separate with a probability of
+      \num{1e-5} of arising by chance. This is the result I would put weight on.
+\item \textbf{Laboratory pair.} The same comparison gives \num{0.062} against
+      \num{-0.264}, separating at \num{7e-5}, but on a fifth of the spectra
+      because the rest fail screening in the atmospheric absorption region.
+\item \textbf{The two agree.} Across the core groups where both can be
+      computed, the two indices track each other with a correlation of
+      \num{0.75}. Since one sits in a clean part of the spectrum and the other
+      does not, that agreement is what convinces me the laboratory-pair signal
+      is real rather than atmospheric noise.
 \item One saturated peat horizon behaves as the model predicts it should fail:
-      the soil is so wet that the strong wavelength pair goes dark. The weaker
-      pair recovers it.
+      the soil is so wet that the strong pair goes dark. The outdoor pair
+      recovers it.
 \item Spectra taken on exposed thaw faces in a soil pit look identical to
       unfrozen soil. A thin melted skin hides the frozen interior. This is the
       main reason the measurement has to be made under controlled conditions
       rather than in the field.
 \end{itemize}
+
+The practical consequence is that sunlight caps what the strongest pair can do.
+Controlled illumination is not a convenience for the experiment, it is what
+makes the laboratory pair available at all.
 
 I also tested how far this would generalise using a public laboratory library
 of soils from across the United States. For \SI{97}{\percent} to
@@ -184,9 +207,11 @@ instruments, the temperature ladder, and the retrieval.}
 \label{fig:workflow}
 \end{figure}}{}
 
-Two instruments divide the work. The PSR+ 3500 uses a contact probe with its
-own lamp, covers \SIrange{350}{2500}{\nano\meter}, and gives a clean spectrum
-from a single spot. The HySpex system covers
+Two instruments divide the work. In Alaska the PSR+ 3500 was used at canopy
+level under sunlight, which is why the field spectra carry atmospheric noise. In
+the laboratory the same instrument takes a contact probe with its own lamp,
+covers \SIrange{350}{2500}{\nano\meter}, and gives a clean spectrum from a
+single spot. The HySpex system covers
 \SIrange{400}{1000}{\nano\meter} at \SI{1.2}{\nano\meter} and
 \SIrange{960}{2500}{\nano\meter} at \SI{1.7}{\nano\meter}, and produces an image
 rather than a point. Both instruments cover all three wavelength pairs.
@@ -213,8 +238,9 @@ problem from the other direction.
 \section{Using the samples we already have}
 
 The samples collected at Poker Flat last year are at Saint Louis University.
-They have PSR+ spectra and full laboratory characterisation, and they have never
-been through the HySpex. Scanning them would give a direct comparison between
+They have PSR+ spectra taken in the field under sunlight, full laboratory
+characterisation, and no HySpex measurements at all. Rescanning them indoors
+would give the first clean shortwave spectra of this material. Scanning them would give a direct comparison between
 the two instruments on identical material, spatial maps of the phase partition,
 and a second measurement on specimens whose properties are already known. None
 of this waits on the August campaign.
