@@ -120,7 +120,7 @@ and liquid water~\cite{Warren_2008}.}
 pair & $\lambda$ (nm) & liquid & ice & character \\
      &                & \multicolumn{2}{c}{($\mathrm{mm}^{-1}$)} & \\
 \midrule
-outdoor and satellite & 1200 / 1250 & 0.126 / 0.111 & 0.070 / 0.130 & about twenty times weaker than the laboratory pair, but the atmosphere is clear here, so it is the only pair that works under sunlight \\
+outdoor and satellite & 1200 / 1250 & 0.126 / 0.111 & 0.070 / 0.130 & about fifty times weaker than the laboratory pair, so it is useful only for thicker water films, but the atmosphere is clear here and it is the only pair that works under sunlight \\
 \addlinespace
 laboratory & 1450 / 1500 & 3.149 / 1.883 & 1.831 / 4.550 & strongest signal, and the pair the experiment is built around; unusable outdoors because the atmosphere absorbs at \SI{1450}{\nano\meter} \\
 \addlinespace
@@ -132,6 +132,17 @@ dry soil only & 1940 / 2020 & 12.375 / 5.425 & 6.903 / 9.742 & very strong, but 
 For a silt freezing from fully liquid to one quarter liquid, the laboratory pair
 predicts a change in reflectance of \SI{22}{\percent} to \SI{33}{\percent},
 which is far above measurement noise.
+
+Two effects complicate this, and both are now quantified. The index is
+proportional to the distance light travels through the water film, and freezing
+changes that distance by expanding the sample and forming ice lenses, so a
+change in structure can imitate a change in phase. Adding a third measurement
+at \SI{1650}{\nano\meter}, outside the absorption features, gives a form of the
+index in which the path length cancels. Separately, liquid water absorbs
+slightly differently as it cools even without freezing, worth about
+\SI{3}{\percent} of the full range for every ten degrees. Both are second-order
+against a signal that spans the full range, but the experiment measures three
+wavelengths rather than two so that we can correct for them.
 
 \section{The signal is already in our Poker Flat data}
 
