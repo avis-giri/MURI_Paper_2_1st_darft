@@ -88,33 +88,20 @@ carefully, but with contact sensors. A published compilation of freezing curves
 measured between 1921 and 2021 lists every method the field uses, and all of
 them require contact with the soil~\cite{Devoie_2022}.
 
-I wanted something better than an impression here, so I measured the gap.
-Screening the titles and abstracts of \num{9021} soil and cryosphere papers, I
-counted how often each measurement method appears alongside each soil property
-and compared that against what independence would predict.
-Figure~\ref{fig:kg} is the result. Reflectance spectroscopy is the largest
-single modality in the corpus at \num{1833} works, and unfrozen water is an
-active subject at \num{230} works, yet their intersection holds one paper
-against the \num{46.7} expected. That one paper is about snow cover, not soil.
-The mid-infrared cell is empty outright. Read the other way, the figure says
-something sharper still: every method that connects to unfrozen water is a
-contact method, and the two modalities that do not touch the soil are exactly
-the two edges that are missing.
-
-This is a keyword screen rather than a reading of every paper, so I checked the
-handful of candidates by hand. None of them measures unfrozen water optically.
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=\textwidth]{figures/fig_kg_network.pdf}
-\caption{The measured gap. Sensing methods on the left, soil properties on the
-right, across \num{9021} papers. Line thickness is the number of papers treating
-both together, and filled circles mark methods that require contact with the
-soil. The dashed line is drawn at the thickness the reflectance to unfrozen
-water link would have if the two subjects were simply independent, against the
-single paper that exists.}
-\label{fig:kg}
-\end{figure}
+I also checked the nearest neighbours carefully, because they define what we
+can and cannot claim. Over snow, people have retrieved the three phases of
+water with imaging spectrometers since 2006, and that machinery now runs in an
+operational satellite chain~\cite{Green_2006,Bohn_2020}. Over planetary
+surfaces, laboratories have measured ice and mineral mixtures in our exact
+wavelengths for four decades~\cite{Clark_1981,Yoldi_2021}. What none of them
+does is retrieve the liquid fraction coexisting with ice in soil, or connect
+any of it to unfrozen water content and the freezing curve. The oldest of
+those papers actually works in our favour: Clark showed in 1981 that the
+absorption bands of water bound to minerals hold their positions as
+temperature drops and stay visible even with ice present, which is exactly the
+stability our measurement needs. And the snow methods rest on an assumption
+that fails over soil, a soil background that is linear in wavelength, which is
+the problem the four-wavelength form below is built to solve.
 
 \section{What the measurement looks like}
 
@@ -145,7 +132,7 @@ all three are available.
 \begin{table}[h]
 \centering\small
 \caption{The three wavelength pairs, from published optical constants for ice
-and liquid water~\cite{Warren_2008}.}
+and liquid water~\cite{Warren_2008,Segelstein_1981}.}
 \label{tab:tiers}
 \begin{tabular}{p{2.1cm}lrrp{5.4cm}}
 \toprule
@@ -263,6 +250,14 @@ signal, and all four wavelengths sit in the clear part of the spectrum. The
 laboratory pair never had this problem. So the outdoor form of the index is a
 four-wavelength measurement from now on, and I would rather build that in now
 than discover it later.
+
+I have since taken this one step further and made the baseline placement a
+result rather than a choice. Searching all candidate baseline windows over one
+random half of the \num{23647} library spectra and scoring on the other half
+lands within a few nanometres of the windows I had picked by hand, and cuts
+the soil-to-soil variation to two percent. The same test shows why the snow
+approach cannot simply be reused: a single straight-line background of the
+width those methods fit leaves nearly half the freezing signal behind.
 
 \section{Which temperatures matter}
 
@@ -509,11 +504,6 @@ Measured freezing curves &
 1921 to 2021 &
 \num{416} curves, \num{869202} points &
 \url{https://doi.org/10.5281/zenodo.5592825} \\
-\addlinespace
-Literature corpus &
-to 2026 &
-\num{9021} works screened for method against soil property &
-\url{https://openalex.org} \\
 \addlinespace
 Laboratory characterisation archive &
 ongoing &
