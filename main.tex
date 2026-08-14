@@ -18,8 +18,7 @@
 \setlength{\parskip}{0.35em}
 
 \title{\vspace{-1.5em}\textbf{A Phase-Partition Index for Freezing Soil:\\
-Retrieving Unfrozen Water Content from Reflectance Spectroscopy}\\[0.4em]
-\large Proposal for co-author review}
+Retrieving Unfrozen Water Content from Reflectance Spectroscopy}}
 \author{Aviskar Giri, Vasit Sagan, Ajay Kumar Patel,\\
 Cagri Gul, Go Iwahana, Tugce Baser}
 \date{August 2026}
@@ -45,13 +44,18 @@ while ice absorbs most strongly near \SI{1500}{\nano\meter}. So if we measure
 reflectance at both wavelengths and take the ratio, the result tells us how the
 water is split between liquid and ice, without touching the sample.
 
-We have checked three things. The physics predicts a signal large enough to
-measure. The signal is already visible in spectra we collected at Poker Flat for
-the previous paper. And the measurement does not appear in the published
-literature. We can begin testing it in the laboratory within weeks, because the
-soil samples collected last year are already at SLU, have
-been measured with the PSR+ spectroradiometer, and are yet to be scanned with
-the HySpex.
+I have now checked this end to end, and the answer each time was favourable. The
+physics predicts a signal far above measurement noise. The signal is already
+visible in the spectra we collected at Poker Flat for the previous paper. The
+measurement does not appear in the published literature. And the whole analysis
+runs as one reproducible pipeline, so every number in this document regenerates
+from the raw data on demand.
+
+What is missing is the laboratory work, and that is the only part still
+outstanding. It can start within weeks: the soil samples collected last year are
+already at SLU, have been measured with the PSR+ spectroradiometer, and have
+never been scanned with the HySpex. The rest of this document sets out what I
+found, what we already hold, and what I think we should do next.
 
 \section{Why this has not been done before}
 
@@ -66,6 +70,17 @@ inside those gaps. Anyone working with these satellites simply cannot see the
 effect. It takes an imaging spectrometer, which measures hundreds of contiguous
 narrow bands rather than a handful of wide ones.
 
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_sensors.pdf}
+\caption{Where the three wavelength pairs fall against what current instruments
+can actually see. Sentinel-2 and Landsat carry no band in either gap, so neither
+can sample any of the pairs. Every imaging spectrometer covers all three. Shaded
+columns are the atmospheric water vapour regions, which is why only the
+\num{1200} and \SI{1250}{\nano\meter} pair is usable outdoors.}
+\label{fig:sensors}
+\end{figure}
+
 Second, the two research communities sit on opposite sides of the freezing
 point. Soil spectroscopy has built large reflectance libraries, but for dried,
 room-temperature samples. Frozen-ground science measures unfrozen water
@@ -73,16 +88,33 @@ carefully, but with contact sensors. A published compilation of freezing curves
 measured between 1921 and 2021 lists every method the field uses, and all of
 them require contact with the soil~\cite{Devoie_2022}.
 
-To check that this really is truly novel, I ran an
-automated screen over the titles and abstracts of soil and cryosphere papers
-indexed in a bibliographic database, counting how often each measurement method
-appears alongside each soil property. This is a keyword screen, not a reading of
-every paper, and I treat it as an indication rather than proof. It shows
-reflectance methods appearing frequently with soil carbon, texture, pH and
-carbonate, and essentially never with unfrozen water, ice content or thermal
-conductivity, while contact methods dominate that second group. I then checked
-the small number of candidate papers by hand and found none that measures
-unfrozen water optically.
+I wanted something better than an impression here, so I measured the gap.
+Screening the titles and abstracts of \num{9021} soil and cryosphere papers, I
+counted how often each measurement method appears alongside each soil property
+and compared that against what independence would predict.
+Figure~\ref{fig:kg} is the result. Reflectance spectroscopy is the largest
+single modality in the corpus at \num{1833} works, and unfrozen water is an
+active subject at \num{230} works, yet their intersection holds one paper
+against the \num{46.7} expected. That one paper is about snow cover, not soil.
+The mid-infrared cell is empty outright. Read the other way, the figure says
+something sharper still: every method that connects to unfrozen water is a
+contact method, and the two modalities that do not touch the soil are exactly
+the two edges that are missing.
+
+This is a keyword screen rather than a reading of every paper, so I checked the
+handful of candidates by hand. None of them measures unfrozen water optically.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_kg_network.pdf}
+\caption{The measured gap. Sensing methods on the left, soil properties on the
+right, across \num{9021} papers. Line thickness is the number of papers treating
+both together, and filled circles mark methods that require contact with the
+soil. The dashed line is drawn at the thickness the reflectance to unfrozen
+water link would have if the two subjects were simply independent, against the
+single paper that exists.}
+\label{fig:kg}
+\end{figure}
 
 \section{What the measurement looks like}
 
@@ -129,6 +161,20 @@ dry soil only & 1940 / 2020 & 12.375 / 5.425 & 6.903 / 9.742 & very strong, but 
 \end{tabular}
 \end{table}
 
+\begin{figure}[h]
+\centering
+\includegraphics[width=3.141in]{figures/fig_basis_a.pdf}\hfill
+\includegraphics[width=3.141in]{figures/fig_basis_b.pdf}
+\caption{Why the measurement works. Left: how strongly liquid water and ice
+absorb across the infrared. The two curves cross twice, at \num{1233} and
+\SI{1465}{\nano\meter}, shown enlarged in the insets, and each pair straddles a
+crossing so the ordering flips between the two wavelengths. Right: the index
+against the liquid fraction, which is a straight line. The shaded band is what
+happens as the water film thickens, which is the effect the third wavelength at
+\SI{1650}{\nano\meter} removes.}
+\label{fig:basis}
+\end{figure}
+
 For a silt freezing from fully liquid to one quarter liquid, the laboratory pair
 predicts a change in reflectance of \SI{22}{\percent} to \SI{33}{\percent},
 which is far above measurement noise.
@@ -158,7 +204,7 @@ fifth of the individual spectra survive screening.
 \item \textbf{Outdoor pair.} Unfrozen active-layer horizons give a median index
       of \num{0.055}, frozen cores \num{0.014}. Every sample group passes
       screening, and the two populations separate with a probability of
-      \num{1e-5} of arising by chance. This is the result I would put weight on.
+      \num{1e-5} of arising by chance. This is the result to put weight on.
 \item \textbf{Laboratory pair.} The same comparison gives \num{0.062} against
       \num{-0.264}, separating at \num{7e-5}, but on a fifth of the spectra
       because the rest fail screening in the atmospheric absorption region.
@@ -176,6 +222,21 @@ fifth of the individual spectra survive screening.
       rather than in the field.
 \end{itemize}
 
+\begin{figure}[h]
+\centering
+\includegraphics[width=2.950in]{figures/fig_pilot_a.pdf}\hfill
+\includegraphics[width=3.459in]{figures/fig_detect_a.pdf}
+\caption{Left: the index on the archived Poker Flat spectra, by sample group,
+for the laboratory pair. Unfrozen horizons and frozen cores separate, the
+shading of the frozen cores gives their logged temperature, and the saturated
+peat horizon is the one case that fails in the way the model says it should.
+Right: how far this carries. Predicted signal against water content for the
+\num{17612} soil layers in the national library that have both spectra and
+water-retention measurements, with permafrost soils marked. Almost all of them
+sit above the detection threshold.}
+\label{fig:pilot}
+\end{figure}
+
 The practical consequence is that sunlight caps what the strongest pair can do.
 Controlled illumination is not a convenience for the experiment, it is what
 makes the laboratory pair available at all.
@@ -187,6 +248,21 @@ water-retention measurements, the predicted signal is large enough to detect.
 Permafrost-order soils give the largest signal of any soil group. The implied
 precision is about \SI{0.017}{\cubic\centi\meter\per\cubic\centi\meter} of
 water, which is comparable to the contact probes currently used.
+
+One finding since then has changed the method, and it is worth stating plainly
+because it is the sort of thing a reviewer would find first. The index only
+cancels the soil underneath if that soil is spectrally flat between the two
+wavelengths. Across the \num{23647} air-dry library spectra it is not: for the
+outdoor pair the soil-to-soil variation is larger than the entire freezing
+signal, so a simple two-wavelength ratio at \num{1200} and
+\SI{1250}{\nano\meter} cannot be compared across different soils. Within one
+site, as at Poker Flat, it is fine, which is why the result above holds. The fix
+is to measure two extra wavelengths either side and subtract the local
+baseline, which brings the soil-to-soil variation down to three percent of the
+signal, and all four wavelengths sit in the clear part of the spectrum. The
+laboratory pair never had this problem. So the outdoor form of the index is a
+four-wavelength measurement from now on, and I would rather build that in now
+than discover it later.
 
 \section{Which temperatures matter}
 
@@ -214,12 +290,12 @@ also the only part of the cold season with enough sunlight at this latitude for
 any future airborne or satellite measurement. The laboratory work and any
 eventual remote measurement therefore point at the same window.
 
-\section{Proposed method}
+\section{The method}
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=\textwidth]{figures/workflow.png}
-\caption{Proposed workflow. Field cores and fabricated specimens feed the two
+\caption{The workflow. Field cores and fabricated specimens feed the two
 instruments, each specimen is measured at a series of temperatures rather than
 one, and the ladder steps are spaced according to how long real ground spends at
 each temperature. The percentage annotated in the figure is superseded by the
@@ -279,11 +355,11 @@ transition zone behave very differently, and that would set the scanning order.
 
 \subsection{Fitting the natural samples to the experimental matrix}
 
-Dr.\ Baser's labo has an established matrix for specimens
+Dr.\ Baser's lab has an established matrix for specimens
 covering sand, silt and clay across dry density, degree of saturation, peat
 content and salt content, and twelve baseline specimens were scanned in December
-2025. I propose treating the natural Poker Flat samples and the fabricated
-specimens as two halves of one design: the fabricated specimens give controlled
+2025. The natural Poker Flat samples and the fabricated specimens should be
+treated as two halves of one design: the fabricated specimens give controlled
 variation along single axes, and the natural samples give real permafrost
 material that no fabrication reproduces.
 
@@ -297,6 +373,7 @@ fabricated range. The natural material is ice-rich and organic-rich, and
 therefore far lighter than compacted mineral soil.
 
 \begin{table}[h]
+\centering\small
 \caption{Natural Poker Flat specimens against the fabricated matrix.}
 \label{tab:matrix}
 \begin{tabular}{lllc}
@@ -313,14 +390,15 @@ volumetric ice (\si{\percent}) & 40 to 79, median 64 & not controlled & none \\
 \end{table}
 
 I will need Dr.\ Baser's help here to find the right matrix design for our
-research. My suggestion is to extend the matrix downward in density, adding a
-low-density organic-rich arm that brackets the natural material, and to scan
-every available natural specimen so that the two sets can be compared directly.
+research. What I think we should do is extend the matrix downward in density,
+adding a low-density organic-rich arm that brackets the natural material, and
+scan every available natural specimen so the two sets can be compared directly.
 \textbf{(Need Dr.\ Iwahana's and Dr.\ Baser's suggestion as we go.)}
 
 \section{Plan for scanning now}
 
-The point of this section is that scanning can begin immediately, run by Nirab under the supervision of Ajay or Majwlan at the RSL while we are in Alaska, using the HySpex procedure already
+Scanning can begin immediately, run by Nirab under the supervision of Ajay or
+Majwlan at the RSL while we are in Alaska, using the HySpex procedure already
 written for the December baseline. Nothing below requires a new protocol.
 
 \subsection{What runs unchanged from the existing procedure}
@@ -337,7 +415,7 @@ carries over without change.
 \subsection{The one change: unfrozen first}
 
 The December session scanned specimens frozen on dry ice. For the stored Poker
-Flat samples I suggest starting with room-temperature scans instead, for three
+Flat samples we should start with room-temperature scans instead, for three
 reasons. It removes the frost problem entirely, so the first data are clean. It
 gives the direct comparison against the PSR+ field spectra, which were also
 taken unfrozen. And it establishes each sample's dry and unfrozen baseline,
@@ -348,9 +426,10 @@ runs follow once we are back and the ladder is set up.
 
 \begin{enumerate}\itemsep2pt
 \item Access to the stored Poker Flat samples.
-      for each site and depth.
 \item Confirmation of their condition and whether any have degraded or dried out
-      since collection. I am assuming some of     e turned and and won't have relatable biochemical properties (pH and others) but will need her consultation to tackle this.
+      since collection. I am assuming some have turned and will no longer carry
+      reliable biochemical properties such as pH, and I will need her
+      consultation on how to handle those.
 \item Sample containers matching the ones used in December, so the imaging
       geometry and working distance stay identical and the two sets remain
       comparable.
@@ -371,15 +450,25 @@ nothing and makes every measurement usable later.
 \section{Where I will need help}
 
 This work sits between soil physics, permafrost science and remote sensing, and
-several of the choices ahead are outside my own expertise. Rather than list them
-all here, I have flagged them in the relevant places above. In short, the
-questions that matter most are how much freezing changes the way light scatters
-independently of the ice content, whether remolded specimens tell us anything
-about intact permafrost with its lenses and layering, which horizons the
-measurement most needs to work for, what the geotechnical community accepts as
-the reference measurement for unfrozen water, and whether the curve shape we fit
-suits peat at all. \textbf{(Need Dr.\ Iwahana's and Dr.\ Baser's guidance as we
-go.)}
+several of the choices ahead are outside my own expertise. I have flagged them
+in the relevant places above rather than listing them all here.
+
+One of them I have since been able to settle myself, and it is worth recording.
+I was worried that freezing changes the way light scatters independently of the
+ice content, which would imitate the signal. From the published measurements
+that effect turns out to be small. What is not small is the change in how far
+light travels through the water film, since ice expands and forms lenses, and
+that enters the index exactly like a change in phase. That is what the third
+wavelength at \SI{1650}{\nano\meter} is for, and measuring three wavelengths
+rather than two also lets the disagreement between them diagnose the problem
+when it occurs.
+
+The ones I still cannot answer alone are whether remolded specimens tell us
+anything about intact permafrost with its lenses and layering, which horizons
+the measurement most needs to work for, what the geotechnical community accepts
+as the reference measurement for unfrozen water, and whether the curve shape we
+fit suits peat at all. \textbf{(Need Dr.\ Iwahana's and Dr.\ Baser's guidance as
+we go.)}
 
 \section{Data available}
 
@@ -420,6 +509,11 @@ Measured freezing curves &
 1921 to 2021 &
 \num{416} curves, \num{869202} points &
 \url{https://doi.org/10.5281/zenodo.5592825} \\
+\addlinespace
+Literature corpus &
+to 2026 &
+\num{9021} works screened for method against soil property &
+\url{https://openalex.org} \\
 \addlinespace
 Laboratory characterisation archive &
 ongoing &
